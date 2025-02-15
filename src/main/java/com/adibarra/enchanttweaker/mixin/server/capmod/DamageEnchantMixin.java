@@ -30,7 +30,7 @@ public abstract class DamageEnchantMixin {
             case 2 -> ETMixinPlugin.getConfig().getOrDefault("bane_of_arthropods", orig);
             default -> orig;
         };
-        if (CheckCallstack.checkCallstack("MerchantEntity")){
+        if (CheckCallstack.checkCallstack("MerchantEntity") || CheckCallstack.checkCallstack("EnchantRandomlyLootFunction")){
             return orig;
         }
         if (lvlCap < 0) return orig;

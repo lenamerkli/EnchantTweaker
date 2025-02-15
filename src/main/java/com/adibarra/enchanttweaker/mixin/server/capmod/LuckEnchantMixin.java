@@ -32,7 +32,7 @@ public abstract class LuckEnchantMixin extends Enchantment {
         method="getMaxLevel()I",
         at=@At("RETURN"))
     private int enchanttweaker$luckEnchant$modifyMaxLevel(int orig) {
-        if (CheckCallstack.checkCallstack("MerchantEntity")){
+        if (CheckCallstack.checkCallstack("MerchantEntity") || CheckCallstack.checkCallstack("EnchantRandomlyLootFunction")){
             return orig;
         }
         if (Registries.ENCHANTMENT.getKey(this).isEmpty()) return orig;
