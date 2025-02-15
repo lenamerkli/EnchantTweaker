@@ -2,6 +2,7 @@ package com.adibarra.enchanttweaker.mixin.server.capmod;
 
 import com.adibarra.enchanttweaker.ETMixinPlugin;
 import com.adibarra.utils.ADMath;
+import com.adibarra.utils.CheckCallstack;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.enchantment.ProtectionEnchantment;
 import org.spongepowered.asm.mixin.Final;
@@ -23,6 +24,9 @@ public abstract class ProtectionEnchantMixin {
         method="getMaxLevel()I",
         at=@At("RETURN"))
     private int enchanttweaker$protectionEnchant$modifyMaxLevel(int orig) {
+        if (CheckCallstack.checkCallstack("MerchantEntity")){
+            return orig;
+        }
         int lvlCap = switch (this.protectionType) {
             case ALL -> ETMixinPlugin.getConfig().getOrDefault("protection", orig);
             case FIRE -> ETMixinPlugin.getConfig().getOrDefault("fire_protection", orig);

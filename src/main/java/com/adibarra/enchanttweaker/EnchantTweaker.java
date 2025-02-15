@@ -9,7 +9,7 @@ public class EnchantTweaker implements ModInitializer {
     public static final String MOD_NAME = "EnchantTweaker";
     public static final String MOD_ID = "enchanttweaker";
     public static final String PREFIX = "[" + MOD_NAME + "] ";
-    private static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
     @Override
     public void onInitialize() {

@@ -7,6 +7,7 @@ import net.minecraft.enchantment.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import com.adibarra.utils.CheckCallstack;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,6 +57,9 @@ public abstract class GenericEnchantMixin {
         method="getMaxLevel()I",
         at=@At("RETURN"))
     private int enchanttweaker$genericEnchant$modifyMaxLevel(int orig) {
+        if (CheckCallstack.checkCallstack("MerchantEntity")){
+            return orig;
+        }
         int lvlCap = ETMixinPlugin.getConfig().getOrDefault(ENCHANTS.get(this.getClass()), orig);
         if (lvlCap < 0) return orig;
         return ADMath.clamp(lvlCap, 0, 255);

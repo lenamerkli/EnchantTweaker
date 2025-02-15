@@ -2,6 +2,7 @@ package com.adibarra.enchanttweaker.mixin.server.capmod;
 
 import com.adibarra.enchanttweaker.ETMixinPlugin;
 import com.adibarra.utils.ADMath;
+import com.adibarra.utils.CheckCallstack;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
@@ -31,8 +32,10 @@ public abstract class LuckEnchantMixin extends Enchantment {
         method="getMaxLevel()I",
         at=@At("RETURN"))
     private int enchanttweaker$luckEnchant$modifyMaxLevel(int orig) {
+        if (CheckCallstack.checkCallstack("MerchantEntity")){
+            return orig;
+        }
         if (Registries.ENCHANTMENT.getKey(this).isEmpty()) return orig;
-
         String key = Registries.ENCHANTMENT.getKey(this).get().getValue().getPath();
         int lvlCap = ETMixinPlugin.getConfig().getOrDefault(key, orig);
         if (lvlCap < 0) return orig;
