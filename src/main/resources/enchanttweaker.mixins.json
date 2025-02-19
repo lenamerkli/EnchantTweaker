@@ -24,6 +24,8 @@
     "server.tweak.AxeWeaponsMixin",
     "server.tweak.BetterMendingMixin",
     "server.tweak.BowInfinityFixMixin",
+    "server.tweak.FairExperienceCostAnvilMixin",
+    "server.tweak.FairExperienceCostTableMixin",
     "server.tweak.GodArmorMixin",
     "server.tweak.GodWeaponsMixin",
     "server.tweak.InfiniteMendingMixin",
