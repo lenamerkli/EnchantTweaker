@@ -30,7 +30,7 @@ public abstract class SpecialEnchantMixin extends Enchantment {
     @Override
     public int getMaxLevel() {
         int orig = super.getMaxLevel();
-        if (CheckCallstack.checkCallstack("MerchantEntity") || CheckCallstack.checkCallstack("EnchantRandomlyLootFunction")){
+        if (CheckCallstack.merchantOrLoot()){
             return orig;
         }
         if (Registries.ENCHANTMENT.getKey(this).isEmpty()) return orig;

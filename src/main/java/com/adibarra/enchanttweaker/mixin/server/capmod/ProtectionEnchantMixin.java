@@ -24,7 +24,7 @@ public abstract class ProtectionEnchantMixin {
         method="getMaxLevel()I",
         at=@At("RETURN"))
     private int enchanttweaker$protectionEnchant$modifyMaxLevel(int orig) {
-        if (CheckCallstack.checkCallstack("MerchantEntity") || CheckCallstack.checkCallstack("EnchantRandomlyLootFunction")){
+        if (CheckCallstack.merchantOrLoot()){
             return orig;
         }
         int lvlCap = switch (this.protectionType) {

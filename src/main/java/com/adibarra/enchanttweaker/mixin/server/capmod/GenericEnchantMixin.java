@@ -57,7 +57,7 @@ public abstract class GenericEnchantMixin {
         method="getMaxLevel()I",
         at=@At("RETURN"))
     private int enchanttweaker$genericEnchant$modifyMaxLevel(int orig) {
-        if (CheckCallstack.checkCallstack("MerchantEntity") || CheckCallstack.checkCallstack("EnchantRandomlyLootFunction")){
+        if (CheckCallstack.merchantOrLoot()){
             return orig;
         }
         int lvlCap = ETMixinPlugin.getConfig().getOrDefault(ENCHANTS.get(this.getClass()), orig);
