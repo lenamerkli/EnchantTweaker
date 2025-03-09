@@ -59,6 +59,8 @@ public final class ETMixinPlugin implements IMixinConfigPlugin {
         KEYS.put("ProtectionEnchantMixin",    "capmod_enabled");
         KEYS.put("SpecialEnchantMixin",       "capmod_enabled");
 
+        KEYS.put("FairExperienceCostMixin",   "fair_experience_cost");
+
         COMPAT.put(
             "AxesNotToolsMixin",
             new CompatEntry(
@@ -98,6 +100,7 @@ public final class ETMixinPlugin implements IMixinConfigPlugin {
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         if (!MOD_ENABLED) return false;
+        if (mixinClassName.contains("FairExperienceCostMixin")) return true;
 
         String mixinName = mixinClassName.substring(mixinClassName.lastIndexOf('.') + 1);
         CompatEntry compatEntry = COMPAT.get(mixinName);

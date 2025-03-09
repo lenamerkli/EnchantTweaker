@@ -2,6 +2,7 @@ package com.adibarra.enchanttweaker.mixin.server.capmod;
 
 import com.adibarra.enchanttweaker.ETMixinPlugin;
 import com.adibarra.utils.ADMath;
+import com.adibarra.utils.CheckCallstack;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.enchantment.DamageEnchantment;
 import org.spongepowered.asm.mixin.Final;
@@ -29,6 +30,9 @@ public abstract class DamageEnchantMixin {
             case 2 -> ETMixinPlugin.getConfig().getOrDefault("bane_of_arthropods", orig);
             default -> orig;
         };
+        if (CheckCallstack.merchantOrLoot()){
+            return orig;
+        }
         if (lvlCap < 0) return orig;
         return ADMath.clamp(lvlCap, 0, 255);
     }

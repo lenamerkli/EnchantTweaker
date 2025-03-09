@@ -4,11 +4,13 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.TridentEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 
 /**
@@ -40,10 +42,13 @@ public abstract class MoreChannelingMixin extends PersistentProjectileEntity {
     }
     */
 
+    @Shadow
+    protected abstract ItemStack asItemStack();
+
     // 1.20.3+:
     @SuppressWarnings("unused")
-    protected MoreChannelingMixin(EntityType<? extends PersistentProjectileEntity> entityType, World world, ItemStack stack) {
-        super(entityType, world, stack);
+    protected MoreChannelingMixin(EntityType<? extends PersistentProjectileEntity> entityType, LivingEntity owner, World world) {
+        super(entityType, owner, world);
     }
 
     @ModifyExpressionValue(
@@ -53,7 +58,7 @@ public abstract class MoreChannelingMixin extends PersistentProjectileEntity {
             value="INVOKE",
             target="Lnet/minecraft/world/World;isThundering()Z"))
     private boolean enchanttweaker$moreChanneling$modifyOnHit(boolean orig) {
-        boolean isChannelingII = EnchantmentHelper.getLevel(Enchantments.CHANNELING, this.getItemStack()) > 1;
+        boolean isChannelingII = EnchantmentHelper.getLevel(Enchantments.CHANNELING, this.asItemStack()) > 1;
         return orig || (isChannelingII && this.getWorld().isRaining());
     }
 }
